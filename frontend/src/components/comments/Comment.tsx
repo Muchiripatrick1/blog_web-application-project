@@ -2,7 +2,7 @@ import {Comment as CommentModel} from "@/models/comment";
 import UserProfileLink from "../UserProfileLink";
 import useAuthenticatedUser from "@/hooks/useAuthenticatedUser";
 import { useContext, useState } from "react";
-import { AuthModalsContext } from "../auth/AuthModalsProvider";
+import { AuthModalsContext } from "@/app/AuthModalsProvider";
 import EditCommentBox from "./EditCommentBox";
 import { Button } from "react-bootstrap";
 import CreateCommentBox from "./CreateCommentBox";
