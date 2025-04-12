@@ -1,6 +1,7 @@
 import { cleanEnv, port, str } from "envalid";
 
 const env = cleanEnv(process.env, {
+    REDIS_URL: str(),
     NODE_ENV: str(),
     MONGO_CONNECTION_STRING: str(),
     PORT: port(),
