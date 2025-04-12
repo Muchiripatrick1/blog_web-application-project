@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import app from "./app";
 import env from "./env";
 
-const port = Number(process.env.PORT) || 5000;
+const port = Number(process.env.PORT) || 10000;
 
 mongoose.connect(env.MONGO_CONNECTION_STRING)
 .then(()=>{
