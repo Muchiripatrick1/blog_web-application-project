@@ -2,7 +2,8 @@ import mongoose from "mongoose";
 import app from "./app";
 import env from "./env";
 
- const port = parseInt(process.env.PORT || "5000", 10);
+ const port = Number(process.env.PORT || 8080);
+
 
 
 mongoose.connect(env.MONGO_CONNECTION_STRING)
