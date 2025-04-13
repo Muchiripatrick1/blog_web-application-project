@@ -93,10 +93,13 @@ export default async function BlogPostPage({params: {slug}}: pageProps){
                 <div className="d-flex flex-column align-items-centre">
                     <h1 className="text-centre mb-3">{title}</h1>
                     <p className="text-centre mb-3 h5">{summary}</p>
+
+                    {author && (
                     <p className="d-flex gap-2 align-items-centre">
-                        Posted by
-                        <UserProfileLink user={author}/>
+                       Posted by <UserProfileLink user={author} />
                     </p>
+                    )}
+
                     <span className="text-muted">{updatedCreatedText}</span>
                     <div className={styles.featuredImageWrapper}>
                     <Image

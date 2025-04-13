@@ -72,6 +72,10 @@ export const getBlogPostBySlug: RequestHandler = async (req, res, next) => {
         throw createHttpError(404, "No blog post found for this slug");
         }
 
+        if (!blogPost.author) {
+            throw createHttpError(500, "Author information is missing for this blog post");
+        }
+
           res.status(200).json(blogPost)
     } catch (error) {
         next(error);
