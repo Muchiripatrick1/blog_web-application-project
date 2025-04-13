@@ -99,7 +99,9 @@ export const createBlogPost: RequestHandler<unknown, unknown, createBlogPostValu
 
         const blogPostId = new mongoose.Types.ObjectId();
 
-        const featuredImageDestinationPath = "/uploads/featured-images/" + blogPostId + ".png";
+        //const featuredImageDestinationPath = "/uploads/featured-images/" + blogPostId + ".png";
+        const featuredImageDestinationPath = path.join(__dirname, "..", "uploads", "featured-images", `${blogPostId}.png`);
+
 
         
         // Ensure the directory exists before saving the image
@@ -162,7 +164,9 @@ export const updateBlogPost: RequestHandler<UpdateBlogPostParams, unknown, creat
         postToEdit.body = body;
 
         if(featuredImage){
-            const featuredImageDestinationPath = "/uploads/featured-images/" + blogPostId + ".png";
+            //const featuredImageDestinationPath = "/uploads/featured-images/" + blogPostId + ".png";
+            const featuredImageDestinationPath = path.join(__dirname, "..", "uploads", "featured-images", `${blogPostId}.png`);
+
 
             // Ensure the directory exists before saving the image
             const uploadDir = path.join(__dirname, "..", "uploads", "featured-images");
@@ -229,7 +233,10 @@ export const uploadInPostImage: RequestHandler = async(req, res, next) => {
 
        const fileName = crypto.randomBytes(20).toString("hex");
 
+       //const imageDestinationPath = "/uploads/in-post-images/" + fileName + path.extname(image.originalname);
        const imageDestinationPath = "/uploads/in-post-images/" + fileName + path.extname(image.originalname);
+
+
 
        // Ensure the directory exists before saving the image
        const uploadDir = path.join(__dirname, "..", "uploads", "in-post-images");
