@@ -116,7 +116,7 @@ export const createBlogPost: RequestHandler<unknown, unknown, createBlogPostValu
 
         await sharp(featuredImage.buffer)
         .resize(700, 450)
-        .toFile("./" + featuredImageDestinationPath);
+        .toFile(featuredImageDestinationPath);
 
         const newPost = await blogPostModels.create({
             _id: blogPostId,
@@ -178,11 +178,15 @@ export const updateBlogPost: RequestHandler<UpdateBlogPostParams, unknown, creat
                 fs.mkdirSync(uploadDir, { recursive: true });
             }
 
+
             await sharp(featuredImage.buffer)
             .resize(700, 450)
-            .toFile("./" + featuredImageDestinationPath);
+            .toFile(featuredImageDestinationPath);
 
-            postToEdit.featuredImageUrl = env.SERVER_URL + featuredImageDestinationPath + "?lastupdated=" + Date.now();
+         
+
+            //postToEdit.featuredImageUrl = env.SERVER_URL + featuredImageDestinationPath + "?lastupdated=" + Date.now();
+            postToEdit.featuredImageUrl = "/uploads/featured-images/" + blogPostId + ".png";
         }
 
         await postToEdit.save();
@@ -238,7 +242,10 @@ export const uploadInPostImage: RequestHandler = async(req, res, next) => {
        const fileName = crypto.randomBytes(20).toString("hex");
 
        //const imageDestinationPath = "/uploads/in-post-images/" + fileName + path.extname(image.originalname);
-       const imageDestinationPath = "/uploads/in-post-images/" + fileName + path.extname(image.originalname);
+       //const imageDestinationPath = "/uploads/in-post-images/" + fileName + path.extname(image.originalname);
+       const imageDestinationPath = "uploads/in-post-images/" + fileName + path.extname(image.originalname);
+
+
 
 
 
@@ -249,10 +256,13 @@ export const uploadInPostImage: RequestHandler = async(req, res, next) => {
        }
 
        await sharp(image.buffer)
-       .resize(1920, undefined, {withoutEnlargement: true})
-       .toFile("./" + imageDestinationPath);
+       .resize(1920, undefined, { withoutEnlargement: true })
+       .toFile(path.join(__dirname, "..", "uploads", "in-post-images", fileName + path.extname(image.originalname)));
+   
 
-       res.status(201).json({ imageUrl: env.SERVER_URL + imageDestinationPath});
+       //res.status(201).json({ imageUrl: env.SERVER_URL + imageDestinationPath});
+       res.status(201).json({ imageUrl: imageDestinationPath });
+
     } catch (error) {
         next(error);
     }
