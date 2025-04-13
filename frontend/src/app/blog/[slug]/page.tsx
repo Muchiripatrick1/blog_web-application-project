@@ -79,7 +79,11 @@ export default async function BlogPostPage({params: {slug}}: pageProps){
        
 
         <div className={styles.container}>
-            <EditPostButton authorId={author._id} slug= {slug} />
+
+         {author?._id && (
+        <EditPostButton authorId={author._id} slug={slug} />
+        )}
+
             
             <div className="text-centre mb-4">
                 <Link href="/blog">← Blog Home</Link>
