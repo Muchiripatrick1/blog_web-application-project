@@ -19,20 +19,24 @@ interface pageProps {
     params: {slug: string},
 }
 
-const getPost = (slug: string) => unstable_cache(async function (slug: string){
+const cachedGetPost = unstable_cache(
+    async (slug: string) => {
+      return await BlogApi.getBlogPostBySlug(slug);
+    },
+    [],
+    { tags: ["blog-posts"] }
+  );
+  
+  async function getPost(slug: string) {
     try {
-        return await BlogApi.getBlogPostBySlug(slug);
+      return await cachedGetPost(slug);
     } catch (error) {
-        if(error instanceof NotFoundError){
-             notFound();
-        } else {
-            throw error;
-        }
+      if (error instanceof NotFoundError) {
+        notFound();
+      }
+      throw error;
     }
-},
-[slug],
-{tags: [slug]}
-)(slug);
+  }
 
 
 export async function generateMetadata({params: {slug}}: pageProps): Promise<Metadata>{
