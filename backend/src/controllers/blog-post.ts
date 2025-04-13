@@ -101,6 +101,13 @@ export const createBlogPost: RequestHandler<unknown, unknown, createBlogPostValu
 
         const featuredImageDestinationPath = "/uploads/featured-images/" + blogPostId + ".png";
 
+        
+        // Ensure the directory exists before saving the image
+        const uploadDir = path.join(__dirname, "..", "uploads", "featured-images");
+        if (!fs.existsSync(uploadDir)) {
+            fs.mkdirSync(uploadDir, { recursive: true });
+        }
+
         await sharp(featuredImage.buffer)
         .resize(700, 450)
         .toFile("./" + featuredImageDestinationPath);
@@ -156,6 +163,12 @@ export const updateBlogPost: RequestHandler<UpdateBlogPostParams, unknown, creat
 
         if(featuredImage){
             const featuredImageDestinationPath = "/uploads/featured-images/" + blogPostId + ".png";
+
+            // Ensure the directory exists before saving the image
+            const uploadDir = path.join(__dirname, "..", "uploads", "featured-images");
+            if (!fs.existsSync(uploadDir)) {
+                fs.mkdirSync(uploadDir, { recursive: true });
+            }
 
             await sharp(featuredImage.buffer)
             .resize(700, 450)
@@ -217,6 +230,12 @@ export const uploadInPostImage: RequestHandler = async(req, res, next) => {
        const fileName = crypto.randomBytes(20).toString("hex");
 
        const imageDestinationPath = "/uploads/in-post-images/" + fileName + path.extname(image.originalname);
+
+       // Ensure the directory exists before saving the image
+       const uploadDir = path.join(__dirname, "..", "uploads", "in-post-images");
+       if (!fs.existsSync(uploadDir)) {
+           fs.mkdirSync(uploadDir, { recursive: true });
+       }
 
        await sharp(image.buffer)
        .resize(1920, undefined, {withoutEnlargement: true})
