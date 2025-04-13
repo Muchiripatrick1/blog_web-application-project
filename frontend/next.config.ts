@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   /* config options here */
   reactStrictMode: true,
   images: {
-    domains: ["https://flock-talk.onrender.com"],
+    domains: ["flock-talk.onrender.com"],
     deviceSizes: [576, 768, 992, 1200, 1400]
   },
   eslint: {
