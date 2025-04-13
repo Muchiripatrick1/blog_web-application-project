@@ -10,7 +10,7 @@ import { BadRequestError, ConflictError } from "@/network/http-errors";
 import * as yup from "yup";
 import { emailSchema, passwordSchema, requiredStringSchema, usernameSchema } from "@/utils/validation";
 import { yupResolver } from "@hookform/resolvers/yup";
-import useCountdown from "@/hooks/useCountDown";
+import useCountdown from "@/hooks/useCountdown";
 
 
 
