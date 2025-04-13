@@ -1,5 +1,5 @@
 import useAuthenticatedUser from "@/hooks/useAuthenticatedUser";
-import useCountdown from "@/hooks/useCountDown";
+import useCountdown from "@/hooks/useCountdown";
 import { BadRequestError, ConflictError, NotFoundError } from "@/network/http-errors";
 import { emailSchema, passwordSchema, requiredStringSchema } from "@/utils/validation";
 import { yupResolver } from "@hookform/resolvers/yup";
