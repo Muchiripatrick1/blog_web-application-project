@@ -33,7 +33,11 @@ app.use("/uploads/profile-pictures", express.static("uploads/profile-pictures"))
 app.use("/uploads/in-post-images", express.static("uploads/in-post-images"));
 
 app.use("/posts", blogPostRoutes);
-app.use("/users", usersPostRoutes)
+app.use("/users", usersPostRoutes);
+
+app.get('/', (req, res) => {
+    res.send('API is running 💚');
+  });
 
 app.use((req, res, next) => next(createHttpError(404, "Endpoint not found")))
 
