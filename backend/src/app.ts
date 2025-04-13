@@ -3,7 +3,7 @@ import express from "express";
 import blogPostRoutes from "./routes/blog-post";
 import usersPostRoutes from "./routes/users";
 import cors from "cors";
-import env from "./env";
+//import env from "./env";
 import morgan from "morgan";
 import errorHandler from "./middlewares/errorHandler";
 import createHttpError from "http-errors";
@@ -18,10 +18,26 @@ app.use(morgan("dev"))
 
 app.use(express.json());
 
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://flock-talk.vercel.app"
+];
+
 app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+}));
+
+/*app.use(cors({
     origin: env.WEBSITE_URL,
     credentials: true,
-}));
+}));*/
 
 
 app.use(session(sessionConfig));
