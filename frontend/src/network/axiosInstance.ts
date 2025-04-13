@@ -3,7 +3,7 @@ import {BadRequestError, UnAuthorizedError, NotFoundError, ConflictError, TooMan
 
 const axiosInstance = axios.create({
     baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
-    timeout: 5000,
+    timeout: 500000,
     withCredentials: true,
 });
 
