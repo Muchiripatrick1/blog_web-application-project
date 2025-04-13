@@ -18,24 +18,26 @@ import { unstable_cache } from "next/cache";
 interface pageProps {
     params: {slug: string},
 }
-
 const cachedGetPost = unstable_cache(
     async (slug: string) => {
-      return await BlogApi.getBlogPostBySlug(slug);
+      try {
+        return await BlogApi.getBlogPostBySlug(slug);
+      } catch (error) {
+        // Instead of crashing, return null
+        if (error instanceof NotFoundError) {
+          return null;
+        }
+        throw error;
+      }
     },
     [],
     { tags: ["blog-posts"] }
   );
   
   async function getPost(slug: string) {
-    try {
-      return await cachedGetPost(slug);
-    } catch (error) {
-      if (error instanceof NotFoundError) {
-        notFound();
-      }
-      throw error;
-    }
+    const post = await cachedGetPost(slug);
+    if (!post) notFound();
+    return post;
   }
 
 
